@@ -1,0 +1,10 @@
+C:\Users\petar\source\repos\Platform Run\Platform Run\bin\Debug\Platform Run.exe.config
+C:\Users\petar\source\repos\Platform Run\Platform Run\bin\Debug\Platform Run.exe
+C:\Users\petar\source\repos\Platform Run\Platform Run\bin\Debug\Platform Run.pdb
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform Run.csprojAssemblyReference.cache
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform_Run.Form1.resources
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform_Run.Properties.Resources.resources
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform Run.csproj.GenerateResource.cache
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform Run.csproj.CoreCompileInputs.cache
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform Run.exe
+C:\Users\petar\source\repos\Platform Run\Platform Run\obj\Debug\Platform Run.pdb

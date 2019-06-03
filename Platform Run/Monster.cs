@@ -20,10 +20,12 @@ namespace Platform_Run
         public static int speed=Platform.speed;
         public static int HEIGHT=40;
         public static int WIDTH=40;
+        //public Rectangle rect;
         public abstract  void Draw(Graphics g);
 
         protected Monster(int health, Point position)
         {
+            //rect=new Rectangle(position.X,position.Y,WIDTH,HEIGHT);
             this.health = health;
             this.position = position;
         }
@@ -31,6 +33,7 @@ namespace Platform_Run
         public virtual void Move()
         {
             position=new Point(position.X-speed,position.Y);
+            //rect=new Rectangle(position.X,position.Y,WIDTH,HEIGHT);
         }
 
         public bool isHit(Point a)
@@ -44,8 +47,9 @@ namespace Platform_Run
             Brush b=new SolidBrush(Color.Red);
             for (int i = 0; i < health; i++)
             {
-                start=new Point(start.X+HPpix+2,start.Y);
                 g.FillRectangle(b,start.X,start.Y,HPpix,HPpix);
+                start=new Point(start.X+HPpix+2,start.Y);
+                
             }
         }
 

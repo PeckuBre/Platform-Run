@@ -11,16 +11,18 @@ namespace Platform_Run
     public class Platform
     {
         public Point start { get; set; }
-        private Point imageStart;
+       // private Point imageStart;
         public int length { get; set; }
         public static int speed=8;
         public static int height=20;
         static Image grass=Resources.treva2;
+        //public Rectangle rect;
         public Platform(Point start,int length)
         {
           this.start=start;
           //imageStart=new Point(start.X,start.Y+20);  
           this.length=length;
+          //rect=new Rectangle(start.X,start.Y,length,height);
         }
         public void Draw(Graphics g)
         {

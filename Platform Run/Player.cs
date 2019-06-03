@@ -20,6 +20,7 @@ namespace Platform_Run
         public static int maxSpeed=75;
         //private static Image goingUP;
         private static Image running=Resources.ezgif_com_crop;
+        //public Rectangle rect;
         //private static Image running2;
         //private static Image goingDOWN;
         public bool inJump{get;set; }
@@ -33,7 +34,7 @@ namespace Platform_Run
             dy=0;
             end=new Point(first.start.X+WIDTH,first.start.Y);
             top=new Point(first.start.X,first.start.Y-HEIGHT);
-
+            //rect=new Rectangle(top.X,top.Y,WIDTH,HEIGHT);
         }
         public void Draw(Graphics g)
         {
@@ -65,16 +66,13 @@ namespace Platform_Run
                 if(top.X>standingOn.length+standingOn.start.X)
                     Duck();
             }
+            //rect=new Rectangle(top.X,top.Y,WIDTH,HEIGHT);
         }
         public bool TryJumpOnMonster(Monster pl)
         {
-            if(inJump){
-            if((pl.position.Y<=end.Y-dy+GRAVITY&&pl.position.Y>=end.Y)&&((top.X>=pl.position.X&&end.X<=pl.position.X+Monster.WIDTH)
-                    ||(top.X<=pl.position.X&&end.X>=pl.position.X+Monster.WIDTH)||(end.X>=pl.position.X&&end.X<=pl.position.X+WIDTH)||
-                    (top.X>=pl.position.X&&top.X<=pl.position.X+WIDTH)))
-                    return true;
-            }
-            return false;
+            return inJump&&(pl.position.Y<=end.Y-dy+GRAVITY&&pl.position.Y>=end.Y)&&((top.X>=pl.position.X&&end.X<=pl.position.X+Monster.WIDTH)
+                  ||(top.X<=pl.position.X&&end.X>=pl.position.X+Monster.WIDTH)||(end.X>=pl.position.X&&end.X<=pl.position.X+WIDTH)||
+                (top.X>=pl.position.X&&top.X<=pl.position.X+WIDTH));
         }
 
         public void TryLand(Platform pl)

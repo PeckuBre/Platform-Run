@@ -43,11 +43,7 @@ namespace Platform_Run
             lastPlatform=new Platform(new Point(playerX,height/2),rnd.Next(125)+200);
             platforms.Enqueue(lastPlatform);
             player=new Player(lastPlatform);
-            while (lastPlatform.start.X + lastPlatform.length < width + 150)
-            {
-                lastPlatform=generatePlatform();
-                platforms.Enqueue(lastPlatform);
-            }
+            addPlatform();
 
         }
         public Monster generateMonsterOnPlatform(Platform pl)
@@ -80,7 +76,7 @@ namespace Platform_Run
             int y;
             if(maxdy>lastPlatform.start.Y+dy&&lastPlatform.start.Y+dy<lastPlatform.start.Y-dy)
                 y=lastPlatform.start.Y-dy;
-            else if(height-100<dy+lastPlatform.start.Y&&lastPlatform.start.Y+dy>lastPlatform.start.Y-dy)
+            else if(height-200<dy+lastPlatform.start.Y&&lastPlatform.start.Y+dy>lastPlatform.start.Y-dy)
                 y=lastPlatform.start.Y-dy;
             else
                 y=lastPlatform.start.Y+dy;
@@ -103,11 +99,7 @@ namespace Platform_Run
         {
             score++;
             player.Move();
-            foreach(Platform pl in platforms)
-            {
-               pl.Move();
-               player.TryLand(pl);
-            }
+            
             foreach(Monster m in monsters)
                 m.Move();
             foreach(Bullet  b in bullets)
@@ -132,6 +124,11 @@ namespace Platform_Run
                     }
                  //if(j>=0&&monsters[j]!=null&&monsters[j].isHit(player.end))
                    // gameOver=true;
+            }
+            foreach(Platform pl in platforms)
+            {
+               pl.Move();
+               player.TryLand(pl);
             }
             for (int i = 0; i < bullets.Count; i++)
             {

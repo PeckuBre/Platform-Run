@@ -20,6 +20,7 @@ namespace Platform_Run
         public static int speed=Platform.speed;
         public static int HEIGHT=40;
         public static int WIDTH=40;
+        public Point middleLeft { get{return new Point(position.X,position.Y-HEIGHT/2);} }
         //public Rectangle rect;
         public abstract  void Draw(Graphics g);
 
@@ -58,7 +59,7 @@ namespace Platform_Run
     {
         public static int SpawnChance=40;
         public static Image slika=Resources.creeper;
-        public CommonMonster(Point position):  base(1, position){}
+        public CommonMonster(Point position):  base(10, position){}
         public override void Draw(Graphics g)
         {
             g.DrawImage(slika,position.X,position.Y,WIDTH,HEIGHT);

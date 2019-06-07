@@ -12,32 +12,51 @@ namespace Platform_Run
 {
     public partial class Form1 : Form
     {
+        enum Actions
+        {
+            jump,melee,duck
+        }
         PlatformRunDoc doc;
         bool paused;
-      
+        Queue<Actions> actions;
         public Form1()
         {
             InitializeComponent();
             DoubleBuffered=true;
             paused=false;
-            doc=new PlatformRunDoc(Width,Height-150);
-            SpawnTimer.Start();
+            actions=new Queue<Actions>();
+            //FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            KeyPreview=true;
+            doc=new PlatformRunDoc(Width,Height-200-2*Platform.height);
             MoveTimer.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            doc.addPlatform();
+            while (actions.Count > 0)
+            {
+                if(actions.Peek()==Actions.jump)
+                    doc.Jump();
+                else if(actions.Peek()==Actions.melee)
+                    doc.Melee();
+                else
+                    doc.Duck();
+                actions.Dequeue();
+            }
             doc.Move();
             if(doc.gameOver){
                 doc=new PlatformRunDoc(Width,Height);
                 }
             ScoreStatus.Text="Score: "+doc.score;
-            BulletsCount.Text="Bullets: "+doc.bullets.Count;
+            KillStatus.Text="Kills: "+doc.kills;
             Invalidate();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black),0,Height-200,Width,200);
             doc.Draw(e.Graphics);
            /* int i=100;
             float [] pattern={3,3};
@@ -58,17 +77,21 @@ namespace Platform_Run
             }*/
         }
 
-        private void SpawnTimer_Tick(object sender, EventArgs e)
-        {
-            doc.addPlatform(); 
-        }
+        
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Up||e.KeyData==Keys.Space)
+            //MessageBox.Show(" a");
+            if (e.KeyData == Keys.Up||e.KeyCode==Keys.W)
                 doc.Jump();
-            
-            else if(e.KeyData==Keys.Down)
+                //actions.Enqueue(Actions.jump);
+            else if(e.KeyData==Keys.Space){
+                doc.Melee(); 
+                //actions.Enqueue(Actions.melee);
+                //Invalidate();
+                }
+            else if(e.KeyData==Keys.Down||e.KeyData==Keys.S)
+                //actions.Enqueue(Actions.duck);
                 doc.Duck();
         }
 
@@ -89,14 +112,16 @@ namespace Platform_Run
             if (paused)
             {
                 MoveTimer.Stop();
-                SpawnTimer.Stop();
             }
             else
             {
                 MoveTimer.Start();
-                SpawnTimer.Start();
             }
             paused=!paused;
         }
+
+        
+
+        
     }
 }

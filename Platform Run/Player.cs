@@ -12,12 +12,16 @@ namespace Platform_Run
     {
         public Point top {get; set; }
         public Point end { get; set; }
-        public static double GRAVITY=7;
+        public static double GRAVITY=5;
         public static double dy{get;set;}
         public static int WIDTH=40;
         public static int HEIGHT=80;
-        public static int jumpSpeed=70;
+        public static int jumpSpeed=50;
         public static int maxSpeed=75;
+        public static int meleeRange=100;
+        public static int meleeDamage=2;
+        public bool inMeleeAttack { get; set; }
+        public Point shootPoint { get{return new Point(end.X,(top.Y+end.Y)/2);} }
         //private static Image goingUP;
         private static Image running=Resources.ezgif_com_crop;
         //public Rectangle rect;
@@ -29,6 +33,7 @@ namespace Platform_Run
         public Player(Platform first)
         {
             weapon=true;
+            inMeleeAttack=false;
             standingOn=first;
             inJump=false;
             dy=0;
@@ -41,8 +46,12 @@ namespace Platform_Run
             Brush b=new SolidBrush(Color.Red);
             g.FillRectangle(b,top.X,top.Y,WIDTH,HEIGHT);
             //g.DrawImage(running,new Point(end.X-running.Width,end.Y-running.Height));
-            b=new SolidBrush(Color.Blue);
-            g.FillEllipse(b,end.X-5,end.Y-5,2*5,2*5);
+            if(inMeleeAttack){
+            inMeleeAttack=false;
+            b=new SolidBrush(Color.Blue); 
+            g.FillPie(b,shootPoint.X-meleeRange,shootPoint.Y-meleeRange,2*meleeRange,2*meleeRange,-90,180);    
+            }
+            
         }
 
         public void Jump()
@@ -53,8 +62,14 @@ namespace Platform_Run
             dy=jumpSpeed; 
             }
         }
+        public void Melee()
+        {
+            inMeleeAttack=true;
+
+        }
         public void Move()
         {
+           
             if(inJump){
             end=new Point(end.X,end.Y-(int)dy);
             top=new Point(top.X,top.Y-(int)dy);

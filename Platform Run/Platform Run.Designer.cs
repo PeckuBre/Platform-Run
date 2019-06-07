@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.MoveTimer = new System.Windows.Forms.Timer(this.components);
-            this.SpawnTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,23 +62,18 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.KillsStatus = new System.Windows.Forms.StatusStrip();
             this.statusScore = new System.Windows.Forms.ToolStripStatusLabel();
             this.ScoreStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.BulletsCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.KillStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.KillsStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // MoveTimer
             // 
             this.MoveTimer.Interval = 10;
             this.MoveTimer.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // SpawnTimer
-            // 
-            this.SpawnTimer.Interval = 650;
-            this.SpawnTimer.Tick += new System.EventHandler(this.SpawnTimer_Tick);
             // 
             // menuStrip1
             // 
@@ -325,17 +319,17 @@
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
-            // statusStrip1
+            // KillsStatus
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.KillsStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusScore,
             this.ScoreStatus,
-            this.BulletsCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 894);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1534, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.KillStatus});
+            this.KillsStatus.Location = new System.Drawing.Point(0, 894);
+            this.KillsStatus.Name = "KillsStatus";
+            this.KillsStatus.Size = new System.Drawing.Size(1534, 22);
+            this.KillsStatus.TabIndex = 1;
+            this.KillsStatus.Text = "statusStrip1";
             // 
             // statusScore
             // 
@@ -348,18 +342,18 @@
             this.ScoreStatus.Size = new System.Drawing.Size(118, 17);
             this.ScoreStatus.Text = "toolStripStatusLabel1";
             // 
-            // BulletsCount
+            // KillStatus
             // 
-            this.BulletsCount.Name = "BulletsCount";
-            this.BulletsCount.Size = new System.Drawing.Size(118, 17);
-            this.BulletsCount.Text = "toolStripStatusLabel1";
+            this.KillStatus.Name = "KillStatus";
+            this.KillStatus.Size = new System.Drawing.Size(118, 17);
+            this.KillStatus.Text = "toolStripStatusLabel1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1534, 916);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.KillsStatus);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -369,8 +363,8 @@
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.KillsStatus.ResumeLayout(false);
+            this.KillsStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,7 +372,6 @@
 
         #endregion
         private System.Windows.Forms.Timer MoveTimer;
-        private System.Windows.Forms.Timer SpawnTimer;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
@@ -409,11 +402,11 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip KillsStatus;
         private System.Windows.Forms.ToolStripStatusLabel statusScore;
         private System.Windows.Forms.ToolStripStatusLabel ScoreStatus;
-        private System.Windows.Forms.ToolStripStatusLabel BulletsCount;
         private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel KillStatus;
     }
 }
 

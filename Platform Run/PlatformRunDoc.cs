@@ -80,14 +80,15 @@ namespace Platform_Run
                 y=lastPlatform.start.Y-dy;
             else
                 y=lastPlatform.start.Y+dy;
-            Point start=new Point(lastPlatform.getEndX()+maxdx,y);
+           // Point start=new Point(lastPlatform.getEndX()-100+maxdx,y);
+            Point start=new Point(lastPlatform.getEndX()-50,y);
             int length = rnd.Next(125)+200;
             return new Platform(start,length);
 
         }
         public void addPlatform()
         {
-            while(lastPlatform.start.X+lastPlatform.length<width){
+            while(lastPlatform.getEndX()-50<width){
             Point start=new Point(width+100,rnd.Next(height-200)+100);
             lastPlatform=generatePlatform();
             Monster m=generateMonsterOnPlatform(lastPlatform);
@@ -95,35 +96,37 @@ namespace Platform_Run
             monsters.Add(m);
             platforms.Enqueue(lastPlatform); }
         }
+        public void KillMonsterAt(int j)
+        {
+                    score+=monsters[j].getPoints();
+                    kills++;
+                    monsters.RemoveAt(j);
+                    
+        }
         public void Move()
         {
             score++;
             player.Move();
-            
-            foreach(Monster m in monsters)
-                m.Move();
             foreach(Bullet  b in bullets)
                 b.Move();
             for (int j = 0; j < monsters.Count; j++){
+                monsters[j].Move();
                 if (player.TryJumpOnMonster(monsters[j]))
                 {
-                    score+=monsters[j].getPoints();
-                    monsters.RemoveAt(j--);
+                    KillMonsterAt(j--);
                     continue;
                 }
                  for(int i = 0; i < bullets.Count; i++)
                     if (monsters[j].isHit(bullets[i].center))
                     {
                         if(--monsters[j].health<=0){
-                            score+=monsters[j].getPoints();
-                            monsters.RemoveAt(j--); 
-                            kills++;
+                            KillMonsterAt(j--);
                             }
                         bullets.RemoveAt(i--);
                         break;
                     }
-                 //if(j>=0&&monsters[j]!=null&&monsters[j].isHit(player.end))
-                   // gameOver=true;
+                 if(j>=0&&monsters[j]!=null&&monsters[j].isHit(player.end))
+                 gameOver=true;
             }
             foreach(Platform pl in platforms)
             {
@@ -161,6 +164,10 @@ namespace Platform_Run
         {
             return Math.Sqrt((a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y));
         }
+        public int SquaredDist(Point a,Point b)
+        {
+            return (a.X-b.X)*(a.X-b.X)+(a.Y-b.Y)*(a.Y-b.Y);
+        }
         public void Shoot(Point to)
         {
             if (player.weapon)
@@ -172,6 +179,23 @@ namespace Platform_Run
                 double a=to.X-start.X;
                 double b=to.Y-start.Y;
                 bullets.Add(new Bullet((float)(Bullet.speed*a/c),(float)(Bullet.speed*b/c),start,(float)(Platform.speed*a/c)));
+            }
+        }
+        public void Melee()
+        { 
+            player.Melee();
+            //int m=Math.Min(monsters.Count,3);
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                if (SquaredDist(player.shootPoint, monsters[i].middleLeft) < Player.meleeRange*Player.meleeRange&&
+                    player.end.X<monsters[i].position.X)
+                {
+                    monsters[i].health-=Player.meleeDamage;
+                    if(monsters[i].health<=0){
+                    KillMonsterAt(i--); 
+                   // m--;    
+                    }
+                }
             }
         }
         public void Jump()

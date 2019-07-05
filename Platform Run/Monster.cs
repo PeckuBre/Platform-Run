@@ -59,7 +59,7 @@ namespace Platform_Run
     {
         public static int SpawnChance=40;
         public static Image slika=Resources.creeper;
-        public CommonMonster(Point position):  base(10, position){}
+        public CommonMonster(Point position):  base(1, position){}
         public override void Draw(Graphics g)
         {
             g.DrawImage(slika,position.X,position.Y,WIDTH,HEIGHT);

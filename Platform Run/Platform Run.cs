@@ -25,7 +25,6 @@ namespace Platform_Run
             DoubleBuffered=true;
             paused=false;
             actions=new Queue<Actions>();
-            //FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             KeyPreview=true;
             doc=new PlatformRunDoc(Width,Height-200-2*Platform.height);
